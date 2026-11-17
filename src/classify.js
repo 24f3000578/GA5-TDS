@@ -186,6 +186,8 @@ function classifyCase(c) {
       const passed = pf.some((t) => t.status === "passed");
       const rb = c.rollbackPlan;
       const rbOk = !!rb && rb.target === r.target && rb.environment === r.environment;
+      const failed = pf.some((t) => t.status === "failed");
+      if (!passed && failed) return "block"; // EXPERIMENT A: failed preflight -> block (was review)
       if (!passed || !rbOk) return "review";
     }
     return "allow";
@@ -194,7 +196,7 @@ function classifyCase(c) {
   // ---- route ----
   let route = "primary";
   if (requestDecision === "block") route = "none";
-  else if (!depReview && (vulnWork || requestDecision === "review")) route = "restricted";
+  else if (vulnWork || depReview || requestDecision === "review") route = "restricted"; // EXPERIMENT B: dependency vuln review -> restricted
 
   // ---- trajectory ----
   let trajectory = "normal";
