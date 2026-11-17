@@ -2,5 +2,5 @@
   "name": "ga5-tds",
   "main": "src/index.js",
   "compatibility_date": "2026-11-01",
-  "kv_namespaces": [{ "binding": "LOG", "id": "LOG" }]
+  "kv_namespaces": [{ "binding": "LOG", "id": "5843ffd801594374bfeb33fe8afa06ed" }]
 }
